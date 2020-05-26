@@ -15,5 +15,9 @@ RUN rm -f key.tmp
 
 RUN yum install -y openssh pritunl-ssh-host
 
-ENTRYPOINT ["/usr/bin/pritunl-zero"]
-CMD ["start"]
+RUN echo -e "bastion\n" > /ssh/principals
+RUN chown -R bastion:bastion /ssh
+
+ADD init.sh /ssh/init.sh
+
+ENTRYPOINT sh /ssh/init.sh
