@@ -8,7 +8,7 @@ information can be found at
 
 # Usage
 
-To use this container the `MONGO_URI` and `NODE_ID` must be set. The node ID
+To use this container *various variables* must be set. The node ID
 is used to identify the node in the cluster, it must be unique to each
 running container.
 
