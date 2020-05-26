@@ -20,5 +20,5 @@ docker run --rm \
 	-e BASTION_HOSTNAME="somethingotherthanbastioniguess" \
 	-e PZ_HOST="your_lame_fqdn.geocities.io" \
 	-e TP_URL="https://zero-mgmt.goatfield.us/ssh_public_key/whatever" \
-	docker.io/seru1us/pritunl-zero
+	docker.io/seru1us/pritunl-zero-bastion
 ```
