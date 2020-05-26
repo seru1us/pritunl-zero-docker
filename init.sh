@@ -1,30 +1,32 @@
 #!/bin/bash
 
+sudo pritunl-ssh-host config add-token $HOST_TOKEN
+sudo pritunl-ssh-host config hostname $BASTION_HOSTNAME
+sudo pritunl-ssh-host config server $PZ_HOST
+
 chmod 0600 /ssh/ssh_host_rsa_key
 
 tee /ssh/sshd_config << EOF
-Port 9722
-AddressFamily any
-ListenAddress 0.0.0.0
-ListenAddress ::
-HostKey /ssh/ssh_host_rsa_key
-HostCertificate /ssh_mount/ssh_host_rsa_key-cert.pub
-PermitRootLogin no
-PasswordAuthentication no
-PermitEmptyPasswords no
-ChallengeResponseAuthentication no
-DenyUsers root bin daemon adm lp sync shutdown halt mail news uucp operator man postmaster cron ftp sshd at squid xfs games postgres cyrus vpopmail ntp smmsp guest nobody
+
 Match User bastion
-	AllowAgentForwarding no
-	AllowTcpForwarding yes
-	PermitOpen *:22
-	GatewayPorts no
-	X11Forwarding no
-	PermitTunnel no
-	ForceCommand echo 'Pritunl Zero Bastion Host'
-	TrustedUserCAKeys /ssh/trusted
-	AuthorizedPrincipalsFile /ssh/principals
+    AllowAgentForwarding no
+    AllowTcpForwarding yes
+    PermitOpen *.$PZ_HOST:22
+    GatewayPorts no
+    X11Forwarding no
+    PermitTunnel yes
+    ForceCommand echo 'Pritunl Zero Bastion Host'
+    TrustedUserCAKeys /etc/ssh/trusted
+    AuthorizedPrincipalsFile /etc/ssh/principals
 Match all
+
+EOF
+sudo tee /etc/ssh/principals << EOF
+bastion
 EOF
 
-/usr/sbin/sshd -D -f /ssh/sshd_config
+TRUSTED_PUBKEY=$(curl $TP_URL)
+
+sudo tee /etc/ssh/trusted << EOF
+ssh-rsa $TRUSTED_PUBKEY
+EOF
