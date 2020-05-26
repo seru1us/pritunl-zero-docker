@@ -1,7 +1,4 @@
-# pritunl-zero-docker
-
-[![github](https://img.shields.io/badge/github-pritunl-11bdc2.svg?style=flat)](https://github.com/pritunl)
-[![twitter](https://img.shields.io/badge/twitter-pritunl-55acee.svg?style=flat)](https://twitter.com/pritunl)
+# pritunl-zero-docker... uh.... but instead for bastion hosts. Yeah this needs to get organized
 
 [Pritunl-Zero](https://zero.pritunl.com) is a zero trust system
 that provides secure authenticated access to internal services from untrusted
@@ -17,10 +14,11 @@ running container.
 
 ```bash
 docker run --rm \
-	--name pritunl-zero \
-	-p 80:80 \
-	-p 443:443 \
-	-e MONGO_URI="mongodb://mongo.example.domain:27017/pritunl-zero" \
-	-e NODE_ID="5b8e11e4610f990034635e98" \
-	docker.io/pritunl/pritunl-zero
+	--name pritunl-bastion-host \
+	-p 22:22 \
+	-e HOST_TOKEN="YNkx7jit84CW" \
+	-e BASTION_HOSTNAME="somethingotherthanbastioniguess" \
+	-e PZ_HOST="your_lame_fqdn.geocities.io" \
+	-e TP_URL="https://zero-mgmt.goatfield.us/ssh_public_key/whatever" \
+	docker.io/seru1us/pritunl-zero
 ```
