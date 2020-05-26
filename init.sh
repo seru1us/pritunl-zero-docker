@@ -30,3 +30,5 @@ TRUSTED_PUBKEY=$(curl $TP_URL)
 sudo tee /etc/ssh/trusted << EOF
 ssh-rsa $TRUSTED_PUBKEY
 EOF
+
+/usr/sbin/sshd -D -f /ssh/sshd_config
