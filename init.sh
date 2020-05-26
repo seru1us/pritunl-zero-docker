@@ -33,4 +33,4 @@ tee /etc/ssh/trusted << EOF
 ssh-rsa $TRUSTED_PUBKEY
 EOF
 
-/usr/sbin/sshd -D -f /ssh/sshd_config
+service sshd restart
