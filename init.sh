@@ -13,7 +13,7 @@ tee /etc/ssh/sshd_config << EOF
 Match User bastion
     AllowAgentForwarding no
     AllowTcpForwarding yes
-    PermitOpen *.$PZ_HOST:22
+    PermitOpen *:22
     GatewayPorts no
     X11Forwarding no
     PermitTunnel yes
