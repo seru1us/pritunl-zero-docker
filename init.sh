@@ -4,7 +4,10 @@ sudo pritunl-ssh-host config add-token $HOST_TOKEN
 sudo pritunl-ssh-host config hostname $BASTION_HOSTNAME
 sudo pritunl-ssh-host config server $PZ_HOST
 
+sudo useradd bastion
 chmod 0600 /ssh/ssh_host_rsa_key
+sudo sed -i '/^TrustedUserCAKeys/d' /etc/ssh/sshd_config
+sudo sed -i '/^AuthorizedPrincipalsFile/d' /etc/ssh/sshd_config
 
 tee /ssh/sshd_config << EOF
 
