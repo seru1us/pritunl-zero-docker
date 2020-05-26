@@ -5,11 +5,10 @@ pritunl-ssh-host config hostname $BASTION_HOSTNAME
 pritunl-ssh-host config server $PZ_HOST
 
 useradd bastion
-chmod 0600 /ssh/ssh_host_rsa_key
 sed -i '/^TrustedUserCAKeys/d' /etc/ssh/sshd_config
 sed -i '/^AuthorizedPrincipalsFile/d' /etc/ssh/sshd_config
 
-tee /ssh/sshd_config << EOF
+tee /etc/ssh/sshd_config << EOF
 
 Match User bastion
     AllowAgentForwarding no
