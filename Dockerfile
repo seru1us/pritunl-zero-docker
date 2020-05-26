@@ -10,7 +10,7 @@ enabled=1' > /etc/yum.repos.d/pritunl.repo
 
 RUN gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7568D9BB55FF9E5287D586017AE645C0CF8E292A
 RUN gpg --armor --export 7568D9BB55FF9E5287D586017AE645C0CF8E292A > key.tmp
-RUN sudo rpm --import key.tmp
+RUN rpm --import key.tmp
 RUN rm -f key.tmp
 
 RUN yum install -y openssh pritunl-ssh-host
